@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCH=NET✓</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- Header with user profile and navigation -->
+<header>
+  <h1 style="text-align:center;">Welcome to School Connect</br>SCH=NET✓</h1>
+  <img scr="file.///storage/emulated/0/LogoMaker/Sch=net✓.jpg" width="104" height="142">
+</header>
+    
+    <nav>
+        <ul>
+          <h3>
+            <li><a href="http://CjYDh2bxPhkh3JB:XzRWsfKgH2DYTYg@localhost:55495/storage/emulated/0/profile%20.html">Profile</a></li>
+            <li><a href="http://CjYDh2bxPhkh3JB:XzRWsfKgH2DYTYg@localhost:55495/storage/emulated/0/private.html">Chat</a></li>
+            <li><a href="">Settings</a></li>
+          </h3>
+        </ul>
+    </nav>
+
+<!-- Main content area -->
+<main>
+    <section class="upload">
+        <h3>Upload Content</h3>
+        <input type="file" accept="image/*, video/*, application/pdf">
+        <button>Upload</button>
+    </section>
+
+    <section class="feed">
+        <!-- Display uploaded videos, photos, etc. with like/comment functionality -->
+        <!-- Example: -->
+        <div class="post">
+            
+            <p>This is a great photo!</p>
+            <div class="actions">
+                <button class="like-btn">Like</button>
+                <button class="comment-btn">Comment</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="chat">
+        <h3>Chat</h3>
+        <div id="chat-messages">
+            <!-- Display chat messages here -->
+        </div>
+        <input type="text" placeholder="Type a message...">
+        <button>Send</button>
+    </section>
+</main>
+  <script>
+const express = require('express');
+const multer = require('multer');
+
+const app = express();
+
+const upload = multer({
+  dest: 'uploads/', // storage directory
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB file size limit
+  fileFilter(req, file, cb) {
+    // only allow image files
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+    }
+  }
+});
+
+app.post('/upload', upload.single('file'), (req, res) => {
+  // file uploaded successfully
+  console.log(`File uploaded: ${req.file.originalname}`);
+  res.send(`File uploaded successfully!`);
+});
+   </script>
+</body>
+</html>
